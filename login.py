@@ -24,4 +24,4 @@ if __name__ == "__main__":
     if check_networking():
         print("已经连接，退出")
         exit(0)
-    login_from_password("19981375401", "Aaa!!!111")
+    login_from_password()
