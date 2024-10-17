@@ -7,8 +7,10 @@
 from requests import post
 import encrypt
 
-def login_from_password(phonenum, password):
-    dataTK = encrypt.get_dataTK(phonenum=phonenum, password=password, name="下次用RSA吧，别用AES了，太简单了(3小时)")
+
+def login_from_password(phonenum, password, name):
+
+    dataTK = encrypt.get_dataTK(phonenum=phonenum, password=password, name=name)
     res = post("http://10.19.1.1/vcpe/userAuthenticate/authenticate", data={
         "dataTk": dataTK,
     }, headers={
@@ -16,12 +18,21 @@ def login_from_password(phonenum, password):
         "WebVersion": "sctel_0925"
     })
     print(res.json())
+    if res.json()["result"] == "2":
+        for i in res.json()["pointList"]:
+            unbind(i)
 
-def check_networking():
-    return True if get("http://captive.apple.com", allow_redirects=False).status_code == 200 else False
+        login_from_password(phonenum, password, name)  # 递归一次
+
+def unbind(info):
+    res = post("http://10.19.1.1/vcpe/userAuthenticate/unBindPortalUserMac", json=info,
+                        headers={
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0',
+                            'Content-Type': 'application/json;charset=UTF-8',
+                            "WebVersion": "sctel_0925"
+                        })
+    print(res.json())
+
 
 if __name__ == "__main__":
-    if check_networking():
-        print("已经连接，退出")
-        exit(0)
-    login_from_password()
+    login_from_password("", "", "哟还真改了RSA啊，辛苦你了，可惜我还是拿下了，下次争取换JWT")
