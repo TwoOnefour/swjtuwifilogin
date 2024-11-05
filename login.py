@@ -35,4 +35,4 @@ def unbind(info):
 
 
 if __name__ == "__main__":
-    login_from_password("", "", "哟还真改了RSA啊，辛苦你了，可惜我还是拿下了，下次争取换JWT")
+    login_from_password("", "", "拿下了，这把确实比较有难度")

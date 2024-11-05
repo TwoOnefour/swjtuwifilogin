@@ -37,13 +37,12 @@ def encrypt_data(e, t=None, i=None):
     Returns:
         The encrypted message as a Base64 encoded string.
     """
-    public_key = """-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0bS+TqzQwUXRH1Rvn2Pd\nYd3xGWtZSC2gjFhDdws8UGAk4Y/pS/KPZ38EIOZzuPa5Y7TIDTwPISfVe1elDiVL\nZD0s4L9U6QwTwo2J45C+7HuiggQWGxvnCxSI6fxij8EUZ0P/Tsth+VwipMLEl9I3\nhQiijiz6Cg/hoyLDeZsBbEaE6hgnTF1CD99LNiTi5ZODHv0Zr6VCH0LMXRp4zNjS\no3DIr8ZmwuVVraIrzP0ySWRAuBI0pHb/IY0bn/zdiYsdVeWr/z98rNw8gDwx6Mcr\nuu//vrK3x2FHxERBTNgHzCBaPijAICNj4S9/vhfuaeXYGp0hPg4NfFwtgtQmF+6Y\n8wIDAQAB\n-----END PUBLIC KEY-----"""
+    public_key = """-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqK0mKEgI1jciJsCkgjO3\nwGuZwR3LsuZ1L+aEuaWf56E+SCwHXOdx7vU/zj53bMNXvqOsSaSl4k1CYxx55iUj\nAiVUp/xsmcIp7Zn7k8PHVeQT0CbUZmQJlIVwV8yzEpRNAPn0H3XYUZdlxCPsuQXj\n22opvRJO5dHjltnN4VeTxRybEsHePKP/6d6O5V4M5j5HOXGa8Nl/fB4p4DEPLr9/\nUZFyiwPRbo3GQFofL8B9eJ64CkNDrsxw3dMhOXQn0M6LL0KuOuJso99sycfYHnHG\nsW4ib7jmL70wvosfPUAaK++e5WkD+Fgydp2kkHOfKF1UIqBjbj78B6W/x/PC2ctq\nkwIDAQAB\n-----END PUBLIC KEY-----"""
     rsa_encrypted = encrypt(e, public_key)
 
     T = ["s", "b", "2", "5", "0"]
-    default_key = "".join(I(["G", "2", "I", "5", "8", "9", "0", "8", "7", "K", "1", "K", "0", "9", "5", "G"], len(T))).lower()
-    default_iv = "".join(I(["1", "J", "2", "5", "4", "6", "I", "1", "K", "J", "2", "0", "K", "8", "H", "7"], len(T))).lower()
-
+    default_key = 'i2k589087m1m095i'
+    default_iv = '1l2546k1ml20m8j7'
     key = t if t else default_key.encode('utf-8')
     iv = i if i else default_iv.encode('utf-8')
 
@@ -81,7 +80,7 @@ def decrypt_data(encrypted_data, t=None, i=None):
     return decrypted_data.decode()
 
 def data_struct(phonenum, pwd, name, business_type="IT"):
-    return "{" + f'"accout":"{str(phonenum)}","pwd":"{pwd}","name":"{name}","business_type":"{business_type}","law_token":"vcpe"' + "}"
+    return "{" + f'"accout":"{str(phonenum)}","pwd":"{pwd}","name":"{name}","business_type":"{business_type}","v_t":"auth"' + "}"
 
 
 def get_pwdkey(phonenum):
