@@ -1,4 +1,5 @@
 #!/bin/bash
+# 经供参考，不要照搬
 
 # 定义函数发送短信验证码
 send_sms() {
@@ -41,12 +42,24 @@ check_network() {
   fi
 }
 
+check_network1(){
+  curl http://10.19.1.1 > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
 # 主函数
 main() {
   # 检查网络连接
+  if ! check_network1; then
+     echo 未连接到路由
+     exit 0
+  fi
   if ! check_network; then
     # 如果网络连接正常，执行登录逻辑, 这里改成你的手机号
-    login "199xxxxxxxx"
+    /usr/bin/python3 /root/login/login.py
   else
     # 如果网络连接异常，执行其他逻辑
     echo "网络已连接，退出"

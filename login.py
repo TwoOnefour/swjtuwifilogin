@@ -1,38 +1,36 @@
-# @Time    : 2024/9/1 19:39
+# @Time    : 2025/3/14 14:24
 # @Author  : TwoOnefour
-# @blog    : https://www.pursuecode.cn
-# @Email   : twoonefour@pursuecode.cn
+# @blog    : https://www.voidval.com
+# @Email   : twoonefour@voidval.com
 # @File    : login.py
 
-from requests import post
-import encrypt
+# 这是教学区的登陆脚本
+import requests
+from urllib import parse
+
+# override default parse
 
 
-def login_from_password(phonenum, password, name):
-
-    dataTK = encrypt.get_dataTK(phonenum=phonenum, password=password, name=name)
-    res = post("http://10.19.1.1/vcpe/userAuthenticate/authenticate", data={
-        "dataTk": dataTK,
-    }, headers={
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0',
-        "WebVersion": "sctel_0925"
-    })
-    print(res.json())
-    if res.json()["result"] == "2":
-        for i in res.json()["pointList"]:
-            unbind(i)
-
-        login_from_password(phonenum, password, name)  # 递归一次
-
-def unbind(info):
-    res = post("http://10.19.1.1/vcpe/userAuthenticate/unBindPortalUserMac", json=info,
-                        headers={
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0',
-                            'Content-Type': 'application/json;charset=UTF-8',
-                            "WebVersion": "sctel_0925"
-                        })
-    print(res.json())
+def quote(s):
+    return parse.quote(s, "!'()*-._~")
 
 
-if __name__ == "__main__":
-    login_from_password("", "", "拿下了，这把确实比较有难度")
+userId = "" # 账号（明文）
+password = "g" # 密码(明文）
+url = "http://192.168.189.136/eportal/InterFace.do?method=login" # 门户url，自己抓包
+# 下面这个参数自己抓包，一般是url后面params的一长串字符
+queryString = "wlanuserip%3D4df84511326d1517d302ff4ef7b6661b%26wlanacname%3Dad2a18598f6edfa5%26ssid%3Dc1cadd92d30be06d%26nasip%3Dbc3a5111bbeef2b19e9d2f01e2a4536e%26mac%3D33d96316b8a6cfde246857f83a9aafd8%26t%3Dwireless-v2%26url%3D2c0328164651e2b4f13b933ddf36628bea622dedcc302b30"
+params = {
+    "userId": quote(userId),
+    "password": quote(password),
+    "service": "",
+    "queryString": queryString,
+    "operatorPwd": "",
+    "operatorUserId": "",
+    "validcode": "",
+    "passwordEncrypt": False,
+}
+
+
+res = requests.post(url, data=params)
+

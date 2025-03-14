@@ -51,3 +51,9 @@ javascript代码里甚至还有`sb250`的`list`，差点没笑死
 23:28 这个你猜对不对的提示是对json请求做了校验，没有对应的参数就不能通过
 勉强在熄灯前打上断点把参数逆向出来了，这次确实挺有难度的
 ![拿下](https://bucket-cf.voidval.com/github_img/3C468D00C543795E03853A65FDD68D25.png)
+
+
+## 2025/03/14
+
+更新教学区登入逻辑，根本不需要怎么动脑
+![](https://bucket.voidval.com/upload/2025/03/dc26d6b797daf27fefdb9f1e0bd379b4.png)
