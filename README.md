@@ -8,7 +8,7 @@
 本人办网络的时候没有告知我账号密码，于是只能采取这种方式。如果你知道账号密码，尽量使用账号密码减小路由负担
 
 # usage
-
+有宿舍区和教学区的脚本, 请自行查看 `login.py` 或 `Dormitory/login.py`
 以下二选一
 
 ## init_campus_network.sh
