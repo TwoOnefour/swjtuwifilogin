@@ -1,6 +1,8 @@
 # Description
 此为西南交通大学登陆wifi的脚本，有`python版本`和`shell版本`，可以把脚本放入路由器实现自动登录/共享网络的功能（一个宿舍只需要办一个网即可，打破常规mac限制
 
+**做了教学区登陆逻辑是因为这个网一段时间后就会自动掉线,明明是有网络流量的,很不合理,每次断网就想骂人**
+
 共享网络也可以路由器插wan在此网络环境下手动去登陆，登陆成功以后该路由整个nat环境都有网
 # base theory
 由于登陆并没有加入验证码防爬虫，所以理论上只需要知道手机号然后遍历1000-9999的验证码
@@ -8,7 +10,7 @@
 本人办网络的时候没有告知我账号密码，于是只能采取这种方式。如果你知道账号密码，尽量使用账号密码减小路由负担
 
 # usage
-
+有宿舍区和教学区的脚本, 请自行查看 `login.py` 或 `Dormitory/login.py`
 以下二选一
 
 ## init_campus_network.sh
@@ -57,3 +59,16 @@ javascript代码里甚至还有`sb250`的`list`，差点没笑死
 
 更新教学区登入逻辑，根本不需要怎么动脑
 ![](https://bucket.voidval.com/upload/2025/03/dc26d6b797daf27fefdb9f1e0bd379b4.png)
+
+
+## 2025/03/17
+
+网络中心是不是没活了，把我的域名dns污染了
+![](https://bucket.voidval.com/upload/2025/03/1709661bfd304a2fa537b778bd57f797.png)
+
+那我走个tls查询dns你又该如何应对？
+
+![](https://bucket.voidval.com/upload/2025/03/6054dcf0bb77650e8440f3cfa7af6e1c.png)
+
+![](https://bucket.voidval.com/upload/2025/03/cdf0e2fee462e14a996e58797b842d57.png)
+
